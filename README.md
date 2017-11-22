@@ -1,3 +1,5 @@
+# React.JS introduction example
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
@@ -17,3 +19,17 @@ After this you will be able to run  create-react-app command at terminal/console
 This command generates initial React project. To start develop just start:
 
     npm start
+    
+## Enabling [react-hot-loader](https://github.com/gaearon/react-hot-loader)
+
+First of all you have to add react-hot-loader module to your projects deps:
+    
+    npm i -D react-hot-loader
+    
+Next step according to react-hot-loader documentation
+is to configure babel setting. For this purpose you
+have to eject all build script from create-react-app:
+
+    npm start eject
+    
+This command creates all build configuration files you need.
