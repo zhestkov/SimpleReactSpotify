@@ -33,3 +33,11 @@ have to eject all build script from create-react-app:
     npm start eject
     
 This command creates all build configuration files you need.
+
+To enable babel plugin for  react-hot-loader at the packege.json line:85 add
+
+    "plugins": ["react-hot-loader/babel"]
+
+Then at the config/webpack.config.dev.js line:30 add following information:
+
+    'react-hot-loader/patch',
