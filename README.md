@@ -11,6 +11,18 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Below you will find some information on how to perform common tasks.<br>
 You can find detailed info [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
+## Useful links
+
+[Create React App](https://github.com/facebookincubator/create-react-app)
+
+[react-hot-loader](https://github.com/gaearon/react-hot-loader)
+
+[The best react book ever](https://reactjs.org/docs/)
+
+[Webpack configuration examples](https://webpack.js.org/guides/)
+
+
+
 ## Creating
 
 To create the initial react project you have to install 
