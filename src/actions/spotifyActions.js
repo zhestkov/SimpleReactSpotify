@@ -1,117 +1,127 @@
-import {
-    SPOTIFY_FAILURE, SPOTIFY_SUCCESS, SPOTIFY_REQUEST, CLEAR_SEARCH, GET_TOKEN,
-    PROFILE_REQUEST, PROFILE_SUCCESS, PROFILE_FAILURE
-} from './actionsTypes';
-
-const API_BASE = 'https://api.spotify.com/v1';
-
-const spotifyRequest = () => {
+import * as types from './actionsTypes'
+function spotifyRequest() {
     return {
-        type: SPOTIFY_REQUEST,
-        loading: true,
-        error: null,
-    };
-};
-
-const spotifySuccess = (json) => {
-    return {
-        type: SPOTIFY_SUCCESS,
-        loading: false,
-        error: null,
-        data: json,
-    };
-};
-
-const spotifyFailure = (json) => {
-    return {
-        type: SPOTIFY_FAILURE,
-        loading: false,
-        error: json,
-    };
-};
-
-export const clearSearch = () => {
-    return {
-        type: CLEAR_SEARCH,
-        data: {},
-    };
-};
-
-
-
-export function requestSpotify(token, part, query='', type='') {
-    const headers = {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + token,
-    };
-    const url = `${API_BASE}/${part}${query}${type}`;
-    return (dispatch) => {
-        dispatch(spotifyRequest());
-        fetch(url,
-            {
-                headers: headers
-            })
-            .then ((response) => response.json())
-            .then ((items) => dispatch(spotifySuccess(items)))
-            .catch ((error) => dispatch(spotifyFailure(error)));
+        type: types.SPOTIFY_REQUEST,
+        isLoading: true,
+        error: null
     };
 }
 
-const saveToken = (token) => {
-    return {
-        type: GET_TOKEN,
-        token: token,
+function spotifySuccess(json) {
+    return{
+        type: types.SPOTIFY_SUCCESS,
+        data: json,
+        isLoading: false,
+        error: null
     };
-};
+}
+
+function spotifyFailure(json) {
+    return {
+        type: types.SPOTIFY_FAILURE,
+        isLoading: false,
+        error: json
+    };
+}
+
+// ------------------CLEAR SEARCH------------------
+export function clearSearch() {
+    return {
+        type: types.CLEAR_SEARCH,
+        data: {}
+    };
+}
+
+// ------------------------------------
+
+
+export function searchSpotify(partUrl, token, query='', type='') {
+
+    const headers = {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + token
+    }
+
+    const url = `https://api.spotify.com/v1/${partUrl}${query}${type}`;
+
+    return (dispatch) => {
+        dispatch(spotifyRequest());
+        fetch(url, {
+            headers: headers
+        })
+            .then((response) => {
+                return response;
+            })
+            .then((response) => response.json())
+            .then((items) => dispatch(spotifySuccess(items)))
+            .catch((error) => dispatch(spotifyFailure(error)));
+    };
+}
+
+
+function saveIt(tokenToSave) {
+    return {
+        type: types.GET_TOKEN,
+        token: tokenToSave
+    };
+}
 
 export function passToken(token) {
     return (dispatch) => {
-        dispatch(saveToken(token));
-    //    dispatch(getProfile(token));
-    }
+        dispatch(saveIt(token));
+        dispatch(getProfile(token));
+    };
 }
 
-const profileRequest = () => {
-    return {
-        type: PROFILE_REQUEST,
-        loading: true,
-        error: null,
-    };
-};
 
-const profileSuccess = (json) => {
+
+
+function profileRequest() {
     return {
-        type: PROFILE_SUCCESS,
-        loading: false,
-        error: null,
+        type: types.PROFILE_REQUEST,
+        isLoading: true,
+        error: null
+    };
+}
+
+function profileSuccess(json) {
+    console.log('profileSuccess:');
+    console.log(json);
+    return{
+        type: types.PROFILE_SUCCESS,
         data: json,
+        isLoading: false,
+        error: null
     };
-};
+}
 
-const profileFailure = (json) => {
+function profileFailure(json) {
     return {
-        type: PROFILE_FAILURE,
-        loading: false,
-        error: json,
+        type: types.PROFILE_FAILURE,
+        isLoading: false,
+        error: json
     };
-};
+}
 
-export function getProfile(token) {
-    const url = `https://api.spotify.com/v1/me`;
+function getProfile(token) {
+    console.log("im pasing the token");
     const headers = {
-        "Accept": "application/json",
-        'Authorization': 'Bearer '+ token
-    };
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + token
+    }
+
+    const url = `https://api.spotify.com/v1/me`;
+
     return (dispatch) => {
         dispatch(profileRequest());
-        console.log('getProfile: profileReqeust() dispatching.. getting token');
-        fetch(url,
-            {
-                headers: headers,
+        fetch(url, {
+            headers: headers
+        })
+            .then((response) => {
+                return response;
             })
             .then((response) => response.json())
-            .then ((items) => profileSuccess(items))
-            .catch ((error) => profileFailure(error));
+            .then((items) => dispatch(profileSuccess(items)))
+            .catch((error) => dispatch(profileFailure(error)));
     };
-};
-
+}

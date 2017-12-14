@@ -1,0 +1,18 @@
+.releases-container {
+    margin: 0 70px;
+}
+.release-item {
+    float: left;
+    width: 270px;
+    height: 270px;
+    margin: 20px 40px;
+    text-align: center;
+    color: burlywood;
+}
+
+.release-item img {
+    max-width: 210px;
+    -webkit-border-radius: 10%;
+    -moz-border-radius: 10%;
+    border-radius: 10%;
+}

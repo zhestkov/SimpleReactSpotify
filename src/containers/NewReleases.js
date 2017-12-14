@@ -1,34 +1,35 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import List from '../components/List/List';
-import * as actions from '../actions/spotifyActions';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
+import * as actions from '../actions/spotifyActions';
+import Releases from "../components/Releases/Releases";
 import {Auth} from "../components/Auth/Auth";
-import './Playlist.css';
 
-class Playlist extends Component {
+class NewReleases extends Component {
     constructor(props) {
         super(props);
     }
 
     componentWillMount() {
-        this.props.actions.searchSpotify('users/' + this.props.profile.data.id + '/playlists', this.props.spotify.token);
+        const { spotify } = this.props;
+        this.props.actions.searchSpotify('browse/new-releases', spotify.token);
     }
 
     render() {
-        const { spotify, profile } = this.props;
+        const { spotify, actions } = this.props;
         return (
-            <div className='playlist-row text-centered'>
+            <div className='text-center'>
                 {
                     (spotify.token.length > 1) ?
-                        (spotify.data.items && spotify.data.items.length > 0) ? (
+                        (
                             <div>
-                                <h2>Your playlists:</h2>
-                                <List spotify={spotify}/>
+                                <h2>New releases:</h2>
+                                <Releases spotify={spotify}/>
                             </div>
-                        ) : (<h2>You have no playlists</h2>)
-                        : (<Auth/>)
+                        ) : (
+                            <Auth/>
+                        )
                 }
             </div>
         )
@@ -39,7 +40,7 @@ const mapStateToProps = (state) => {
     const { spotify, profile } = state;
     return {
         spotify,
-        profile
+        profile,
     }
 };
 
@@ -48,8 +49,7 @@ const mapDispatchToProps = (dispatch) => {
         actions: bindActionCreators(actions, dispatch)
     }
 };
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-) (Playlist);
+) (NewReleases);

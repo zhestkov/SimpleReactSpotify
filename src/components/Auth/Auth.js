@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 export class Auth extends Component {
     render() {
         return (
-            <Link to='/'>You need authorize</Link>
+            null
+            //<Link to='/'>You need authorize</Link>
         );
     }
 }

@@ -1,0 +1,37 @@
+.list-container {
+    margin: 0 80px;
+
+}
+.list-item {
+    float: left;
+    width: 270px;
+    height: 270px;
+    margin: 20px 40px;
+    text-align: center;
+    color: burlywood;
+}
+
+.list-item img {
+    max-width: 210px;
+    -webkit-border-radius: 10%;
+    -moz-border-radius: 10%;
+    border-radius: 10%;
+}
+
+@media screen and (max-width: 900px) {
+    .list-container {
+        margin: 0 25%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .list-container {
+        margin: 0 100px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .list-container {
+        margin: 0 30px;
+    }
+}

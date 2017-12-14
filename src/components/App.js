@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import Nav from '../containers/Nav';
+import { Redirect } from 'react-router';
 
 class App extends Component {
     constructor(props) {
         super(props);
     }
+
     render() {
         console.log(this.props);
         return (
             <div>
-                <h2>This is common header</h2>
+                <Nav/>
                 {this.props.children}
             </div>
         );
