@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import './index.css';
+// import './index.css';
+import { createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
-import {Router, Route, Switch, BrowserHistory} from 'react-router';
 import App from './App';
-3
+import { history } from './utils/history';
+import { store } from './utils/configureStore';
+
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-        <Provider store={ store }>
 
-        </Provider>
+            <Component history={ history }/>
     </AppContainer>,
     document.getElementById('root'),
   )
